@@ -1,6 +1,6 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login } from '@/api/user'
-import { Message } from 'element-ui'
+// import { login } from '@/api/user'
+// import { Message } from 'element-ui'
 export default {
   namespaced: true,
   state: {
@@ -18,14 +18,14 @@ export default {
   },
   actions: {
 
-    denglu(context, loginForm) {
-      // context.commit('addToken', token)
-      login(loginForm).then(res => {
-        context.commit('addToken', res.data.data)
-      }).catch(err => {
-        console.log(err)
-        Message.error(err.message)
-      })
+    denglu(context, token) {
+      context.commit('addToken', token)
+      // login(loginForm).then(res => {
+      //   context.commit('addToken', res.data.data)
+      // }).catch(err => {
+      //   console.log(err)
+      //   Message.error(err.message)
+      // })
     }
   }
 }

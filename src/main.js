@@ -13,7 +13,7 @@ import store from './store'
 import router from './router'
 
 import '@/icons' // icon
-import '@/permission' // permission control
+import '@/permission' // 权限控制
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })

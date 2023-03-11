@@ -59,7 +59,7 @@
 import { validMobile } from '@/utils/validate'
 
 // 按需导入 登录请求
-import { getUser } from '@/api/user'
+import { getUser, login } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -116,16 +116,18 @@ export default {
       // 兜底校验
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          // login(this.loginForm).then(res => {
-          //   // console.log(res)
-          //   // this.$store.commit('user/addToken', res.data.data)
-          //   this.$store.dispatch('user/add', res.data.data)
-          // }).catch(err => {
-          //   // console.log(err)
-          //   this.$message.error(err.message)
-          // })
+          login(this.loginForm).then(res => {
+            // console.log(res)
+            // this.$store.commit('user/addToken', res.data.data)
+            this.$store.dispatch('user/denglu', res.data.data)
+            this.$router.push('/')
+            this.$message.success('登录成功')
+          }).catch(err => {
+            // console.log(err)
+            this.$message.error(err.message)
+          })
 
-          this.$store.dispatch('user/denglu', this.loginForm)
+          // this.$store.dispatch('user/denglu', this.loginForm)
         }
       })
     },
