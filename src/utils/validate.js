@@ -1,5 +1,5 @@
 /**
- * Created by PanJiaChen on 16/11/18.
+ * 校验规则 专用文件
  */
 
 /**
@@ -17,4 +17,12 @@ export function isExternal(path) {
 export function validUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
+}
+
+/** 手机号正则校验
+ * @param {string} 手机号
+ * @returns {Boolean} 手机号校验结果
+ */
+export function validMobile(str) {
+  return /^1[3-9]\d{9}$/.test(str)
 }
