@@ -39,7 +39,7 @@ module.exports = {
     // 解决跨域问题
     proxy: {
       '/api': {
-        target: 'http://ihrm-java.itheima.net'
+        target: 'http://localhost:3000'
       }
     }
   },

@@ -44,7 +44,6 @@
       </el-form-item>
 
       <el-button class="loginBtn" :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
-      <el-button @click="getUser">获取用户信息</el-button>
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
         <span> 密码: 123456</span>
@@ -59,7 +58,7 @@
 import { validMobile } from '@/utils/validate'
 
 // 按需导入 登录请求
-import { getUser, login } from '@/api/user'
+import { login } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -120,7 +119,7 @@ export default {
             // console.log(res)
             // this.$store.commit('user/addToken', res.data.data)
             this.$store.dispatch('user/denglu', res.data.data)
-            this.$router.push('/')
+            this.$router.push(this.$route.query.return_url || '/')
             this.$message.success('登录成功')
           }).catch(err => {
             // console.log(err)
@@ -129,12 +128,6 @@ export default {
 
           // this.$store.dispatch('user/denglu', this.loginForm)
         }
-      })
-    },
-    getUser() {
-      console.log('获取用户信息')
-      getUser().then(res => {
-        console.log(res)
       })
     }
   }

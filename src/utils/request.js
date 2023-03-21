@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import router from '@/router'
 
 const service = axios.create({
   // 基地址
@@ -32,7 +33,19 @@ service.interceptors.response.use(function(response) {
     return Promise.reject(new Error(response.data.message))
   }
 }, function(error) {
-  // 超出 2xx 范围的状态码都会触发该函数。
+  // console.dir(error)
+  if (error.response.data.code === 10002) {
+    // 清除token 清除用户信息
+    store.commit('user/removeToken')
+    store.commit('user/removeUser')
+    // 跳转到登录页面
+    router.push({
+      path: '/login',
+      query: {
+        return_url: router.currentRoute.fullPath
+      }
+    })
+  }
   // 对响应错误做点什么
   return Promise.reject(error)
 })
