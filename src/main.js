@@ -15,6 +15,11 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // 权限控制
 
+// 导入组件
+import PageTools from '@/components/PageTools'
+// 注册全局组件
+Vue.component(PageTools.name, PageTools)
+
 // set ElementUI lang to EN
 Vue.use(ElementUI)
 // 如果想要中文版 element-ui，按如下方式声明

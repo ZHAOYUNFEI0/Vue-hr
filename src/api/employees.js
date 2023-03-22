@@ -10,3 +10,11 @@ export function getEmployessSimple() {
     method: 'get'
   })
 }
+
+export function getEmployess(params) {
+  return request({
+    url: '/sys/user',
+    method: 'get',
+    params
+  })
+}
