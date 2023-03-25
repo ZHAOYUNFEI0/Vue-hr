@@ -9,6 +9,7 @@
 
 <script>
 import UploadWxcel from '@/components/UploadExcel'
+import { formatExcelDate } from '@/utils'
 export default {
   name: 'Import',
   components: { UploadWxcel },
@@ -55,7 +56,11 @@ export default {
         const zhKeys = Object.keys(item)
         zhKeys.forEach(zhKey => {
           const enKey = mapInfo[zhKey]
-          obj[enKey] = item[zhKey]
+          if (enKey === 'timeOfEntry' || enKey === 'correctionTime') {
+            obj[enKey] = formatExcelDate(item[zhKey])
+          } else {
+            obj[enKey] = item[zhKey]
+          }
         })
         return obj
       })

@@ -99,6 +99,13 @@
         background-color: $menuHover !important;
       }
     }
+    // 导航高亮
+    .router-link-active{
+      background-color: $menuHover !important;
+      span,svg{
+        color: $menuActiveText !important;
+      }
+    }
 
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
