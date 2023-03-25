@@ -95,7 +95,7 @@ export default {
       const v = val * 1
       const i = employees.hireType.find(item => item.id === v)
       // console.log(v)
-      return i.value
+      return i ? i.value : ''
     },
     handleSizeChange(val) {
       // console.log(val)

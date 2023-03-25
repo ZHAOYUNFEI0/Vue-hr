@@ -100,7 +100,7 @@
       }
     }
     // 导航高亮
-    .router-link-active{
+    .el-menu .router-link-active{
       background-color: $menuHover !important;
       span,svg{
         color: $menuActiveText !important;

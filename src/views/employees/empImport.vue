@@ -10,13 +10,14 @@
 <script>
 import UploadWxcel from '@/components/UploadExcel'
 import { formatExcelDate } from '@/utils'
+import { importEmployees } from '@/api/employees'
 export default {
   name: 'Import',
   components: { UploadWxcel },
   data() {
     return {
-      tableData: [],
-      tableHeader: []
+    //   tableData: [],
+    //   tableHeader: []
     }
   },
   methods: {
@@ -34,10 +35,18 @@ export default {
       return false
     },
     handleSuccess({ results, header }) {
-      console.log(results)
+    //   console.log(results)
       const res = this.transExcel(results)
       console.log(res)
-
+      importEmployees(res).then(r => {
+        console.log(r)
+        this.$message.success(r.data.message)
+        // 返回上一级
+        this.$router.back()
+      }).catch(err => {
+        console.log(err)
+        this.$message.error(err.message)
+      })
       this.tableData = results
       this.tableHeader = header
     },

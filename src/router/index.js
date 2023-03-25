@@ -52,17 +52,17 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-  {
-    path: '/employees/import',
-    component: Layout,
-    children: [{
-      path: '',
-      name: 'Import',
-      component: () => import('@/views/employees/empImport.vue'),
-      meta: { title: 'Excel导入', icon: 'people' },
-      hidden: true
-    }]
-  },
+  // {
+  //   path: '/employees/import',
+  //   component: Layout,
+  //   children: [{
+  //     path: '',
+  //     name: 'Import',
+  //     component: () => import('@/views/employees/empImport.vue'),
+  //     meta: { title: 'Excel导入', icon: 'people' },
+  //     hidden: true
+  //   }]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
