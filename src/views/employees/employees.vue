@@ -7,7 +7,7 @@
         </template>
         <template #right>
           <el-button type="warning" size="small" @click="$router.push('/employees/import')">excel导入</el-button>
-          <el-button type="danger" size="small">excel导出</el-button>
+          <el-button type="danger" size="small" @click="hExport">excel导出</el-button>
           <el-button type="primary" size="small" @click="showDialog=true">新增员工</el-button>
         </template>
       </page-tools>
@@ -126,6 +126,65 @@ export default {
       // 关闭dialog
       this.showDialog = false
       this.loadEmployees()
+    },
+    hExport() {
+      import('@/vendor/Export2Excel').then(excel => {
+        // excel表示导入的模块对象
+        console.log(excel)
+        // 发请求获取数据
+        getEmployess({ page: 1, size: this.total }).then(res => {
+          // if (!res.success) return console.dir(res)
+          // console.log(res.data.data.rows)
+
+          // 将数据转换成需要的格式
+          const result = this.format2Excel(res.data.data.rows)
+
+          // 导出Excel
+          excel.export_json_to_excel({
+            header: result.header, // ['姓名', '工资'] 表头 必填
+            // data: [
+            //   ['刘备', 100],
+            //   ['关羽', 500]
+            // ], // 具体数据 必填
+            data: result.data,
+            filename: 'excel-list', // 文件名称
+            autoWidth: true, // 宽度是否自适应
+            bookType: 'xlsx' // 生成的文件类型
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      })
+    },
+    format2Excel(list) {
+      const mapInfo = {
+        'id': '编号',
+        'password': '密码',
+        'mobile': '手机号',
+        'username': '姓名',
+        'timeOfEntry': '入职日期',
+        'formOfEmployment': '聘用形式',
+        'correctionTime': '转正日期',
+        'workNumber': '工号',
+        'departmentName': '部门',
+        'staffPhoto': '头像地址'
+      }
+      let header = []
+      let data = []
+
+      if (list.length === 0) return { header, data }
+      const obj = list[0]
+      header = Object.keys(obj).map(k => mapInfo[k])
+      // console.log(header)
+
+      data = list.map(item => {
+        // 聘用形式处理
+        // const k = item.formOfEmployment
+        // item.formOfEmployment = obj[k]
+
+        return Object.values(item)
+      })
+      return { header, data }
     }
   }
 }
