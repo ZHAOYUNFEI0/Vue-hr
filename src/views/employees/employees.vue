@@ -26,7 +26,7 @@
           <el-table-column sortable label="入职时间" prop="timeOfEntry" />
           <el-table-column label="操作" width="280">
             <template v-slot="scop">
-              <el-button type="text" size="small">查看</el-button>
+              <el-button type="text" size="small" @click="$router.push('/employees/detail?id='+scop.row.id)">查看</el-button>
               <el-button type="text" size="small">分配角色</el-button>
               <el-button type="text" size="small" @click="hDel(scop.row.id)">删除</el-button>
             </template>

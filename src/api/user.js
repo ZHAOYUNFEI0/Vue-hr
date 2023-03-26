@@ -41,3 +41,15 @@ export function logout() {
 
   })
 }
+
+/**
+ *  员工管理-查看：根据id显示详情数据集
+ * @param {*} id 传入点击用户id
+ * @returns 返回用户基本信息
+ */
+export function getUserDetailById(id) {
+  return request({
+    url: `/sys/user/${id}`,
+    method: 'get'
+  })
+}

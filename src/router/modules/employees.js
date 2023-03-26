@@ -14,6 +14,13 @@ export default {
     component: () => import('@/views/employees/empImport.vue'),
     meta: { title: 'Excel导入', icon: 'people' },
     hidden: true
+  },
+  {
+    path: 'detail',
+    name: 'EmployeesDetail',
+    component: () => import('@/views/employees/detail.vue'),
+    meta: { title: '员工详情', icon: 'people' },
+    hidden: true
   }
   ]
 }
