@@ -8,7 +8,7 @@
       :before-upload="beforeAvatarUpload"
       :http-request="upload"
     >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
+      <img v-if="img" :src="img" class="avatar">
       <i v-show="!showProgress" v-else class="el-icon-plus avatar-uploader-icon" />
       <el-progress v-if="showProgress" type="circle" :percentage="progress" />
     </el-upload>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+
 // 下面的代码是固定写法
 const COS = require('cos-js-sdk-v5')
 // 填写自己腾讯云cos中的key和id (密钥)
@@ -25,9 +26,11 @@ const cos = new COS({
 })
 
 export default {
+
+  props: ['img'],
   data() {
     return {
-      imageUrl: '',
+      // imageUrl: this.img,
       progress: '',
       showProgress: false
     }
@@ -36,6 +39,7 @@ export default {
     upload(res) {
       if (res.file) {
         // 执行上传操作
+        this.imageUrl = ''
         this.showProgress = true
         cos.putObject({
           Bucket: 'hr-1317489876', /* 存储桶 */
@@ -52,6 +56,7 @@ export default {
           console.log(err || data)
           // 上传成功之后
           if (data.statusCode === 200) {
+            this.$emit('input', `https:${data.Location}`)
             this.imageUrl = `https:${data.Location}`
             this.showProgress = false
           }

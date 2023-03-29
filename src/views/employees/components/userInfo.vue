@@ -23,7 +23,7 @@
 
       <el-form-item label="员工头像">
         <!-- 放置上传图片 -->
-        <uploadImg />
+        <uploadImg :img="userInfo.staffPhoto" @input="url => userInfo.staffPhoto=url" />
         <!-- <img :src="userInfo.staffPhoto"> -->
       </el-form-item>
 
@@ -46,7 +46,8 @@ export default {
       userId: this.$route.query.id,
       userInfo: {
         mobile: '',
-        timeOfEntry: ''
+        timeOfEntry: '',
+        staffPhoto: ''
       }
     }
   },

@@ -16,6 +16,12 @@
         <el-table :data="employees" border>
           <el-table-column label="序号" type="index" />
           <el-table-column label="姓名" prop="username" />
+          <el-table-column label="头像">
+            <template v-slot="scop">
+              <!-- <img :src=" scop.row.staffPhoto" alt=""> -->
+              <ImageHouder :src="scop.row.staffPhoto" />
+            </template>
+          </el-table-column>
           <el-table-column sortable label="工号" prop="workNumber" />
           <el-table-column label="聘用形式">
             <template v-slot="scop">
@@ -56,13 +62,14 @@
   </div>
 </template>
 <script>
+import ImageHouder from '@/components/imageHolder'
 import { getEmployess, delEmployess } from '@/api/employees'
 import employees from '@/constant/employees'
 import AddOrEdit from '@/views/employees/empDialog.vue'
 export default {
   name: 'VuecliDemoApp',
   components: {
-    AddOrEdit
+    AddOrEdit, ImageHouder
   },
   data() {
     return {
