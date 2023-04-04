@@ -33,7 +33,7 @@
           <el-table-column label="操作" width="280">
             <template v-slot="scop">
               <el-button type="text" size="small" @click="$router.push('/employees/detail?id='+scop.row.id)">查看</el-button>
-              <el-button type="text" size="small">分配角色</el-button>
+              <el-button type="text" size="small" @click="hAssign(scop.row.id)">分配角色</el-button>
               <el-button type="text" size="small" @click="hDel(scop.row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -59,6 +59,14 @@
     >
       <AddOrEdit @clear="hClear" />
     </el-dialog>
+
+    <el-dialog
+      v-if="isDialog"
+      title="分配角色"
+      :visible.sync="isDialog"
+    >
+      <AssignRole v-if="isDialog" :user-id="userId" @close="isDialog=false" />
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -66,10 +74,11 @@ import ImageHouder from '@/components/imageHolder'
 import { getEmployess, delEmployess } from '@/api/employees'
 import employees from '@/constant/employees'
 import AddOrEdit from '@/views/employees/empDialog.vue'
+import AssignRole from './assignRole.vue'
 export default {
   name: 'VuecliDemoApp',
   components: {
-    AddOrEdit, ImageHouder
+    AddOrEdit, ImageHouder, AssignRole
   },
   data() {
     return {
@@ -79,7 +88,9 @@ export default {
       },
       total: 0,
       employees: [],
-      showDialog: false
+      showDialog: false,
+      isDialog: false,
+      userId: ''
     }
   },
   created() {
@@ -192,6 +203,11 @@ export default {
         return Object.values(item)
       })
       return { header, data }
+    },
+    // 分配角色
+    hAssign(id) {
+      this.userId = id
+      this.isDialog = true
     }
   }
 }
