@@ -6,7 +6,7 @@
     </el-checkbox-group>
 
     <div style="margin-top: 20px; text-align: right">
-      <el-button type="primary">确定</el-button>
+      <el-button type="primary" @click="hSubmit">确定</el-button>
       <el-button @click="closeDialog">取消</el-button>
     </div>
   </div>
@@ -14,6 +14,7 @@
 <script>
 import { getRoles } from '@/api/roles'
 import { getUserDetailById } from '@/api/user'
+import { assignRoles } from '@/api/employees'
 export default {
   props: {
     userId: {
@@ -42,11 +43,19 @@ export default {
       })
     },
     loadRolesById() {
-      console.log(this.userId)
+      // console.log(this.userId)
       getUserDetailById(this.userId).then(res => {
         // console.log(res)
         this.roleIds = res.data.data.roleIds
       })
+    },
+    hSubmit() {
+      // console.log(111)
+      assignRoles({ id: this.userId, roleIds: this.roleIds }).then(res => {
+        // console.log(res)
+        this.$message.success(res.data.message)
+      })
+      this.$emit('close')
     }
   }
 }

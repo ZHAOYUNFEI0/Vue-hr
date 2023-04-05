@@ -53,3 +53,4 @@ export function getUserDetailById(id) {
     method: 'get'
   })
 }
+

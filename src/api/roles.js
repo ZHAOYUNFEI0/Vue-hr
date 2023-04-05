@@ -51,3 +51,27 @@ export function updateRole(data) {
   })
 }
 
+/**
+ *  获取角色的权限点
+ * @param {*} id
+ * @returns
+ */
+export function getRolesDetailById(id) {
+  return request({
+    url: `/sys/role/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 设置角色权限点
+ * @param {*} data
+ * @returns
+ */
+export function assignPerm(data) {
+  return request({
+    url: 'sys/role/assignPrem',
+    method: 'put',
+    data
+  })
+}

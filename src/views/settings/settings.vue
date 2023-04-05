@@ -21,7 +21,7 @@
               <el-table-column label="描述" prop="description" />
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button size="small" type="success">分配权限</el-button>
+                  <el-button size="small" type="success" @click="hAssign(scope.row.id)">分配权限</el-button>
                   <el-button size="small" type="primary" @click="edit(scope.row)">编辑</el-button>
                   <el-button size="small" type="danger" @click="del(scope.row.id)">删除</el-button>
                 </template>
@@ -69,12 +69,23 @@
         </el-col>
       </el-row>
     </el-dialog>
+
+    <el-dialog
+      title="权限分配"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :visible.sync="isDialog"
+    >
+      <assignPermission v-if="isDialog" :roles-id="rolesId" @close="isDialog=false" />
+    </el-dialog>
   </div>
 </template>
 <script>
 import { getRoles, delRoles, addRoles, updateRole } from '@/api/roles'
+import assignPermission from './assignPermission.vue'
 export default {
   name: 'VuecliDemoApp',
+  components: { assignPermission },
   data() {
     return {
       q: {
@@ -91,7 +102,9 @@ export default {
       rules: {
         name: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }]
       },
-      isEdit: false
+      isEdit: false,
+      isDialog: false,
+      rolesId: ''
     }
   },
   created() {
@@ -194,6 +207,10 @@ export default {
         this.showDialog = false
         this.$message.error(err.message)
       })
+    },
+    hAssign(id) {
+      this.isDialog = true
+      this.rolesId = id
     }
   }
 }
