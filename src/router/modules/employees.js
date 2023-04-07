@@ -4,7 +4,7 @@ export default {
   component: Layout,
   children: [{
     path: '',
-    name: 'Employees',
+    name: 'employees',
     component: () => import('@/views/employees/employees.vue'),
     meta: { title: '员工管理', icon: 'people' }
   },

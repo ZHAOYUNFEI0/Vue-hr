@@ -4,7 +4,7 @@ export default {
   component: Layout,
   children: [{
     path: '',
-    name: 'Attendances',
+    name: 'attendances',
     component: () => import('@/views/attendances/attendances.vue'),
     meta: { title: '考勤管理', icon: 'skill' }
   }]

@@ -38,12 +38,20 @@ export default {
       // })
     },
     // 获取用户信息
-    getUser(context) {
-      getUser().then(res1 => {
-        getUserInfo(res1.data.data.userId).then(res2 => {
-          context.commit('getUser', { ...res1.data.data, ...res2.data.data })
-        })
-      })
+    async getUser(context) {
+      const res1 = await getUser()
+      // console.log(res1.data.data.userId)
+      const res2 = await getUserInfo(res1.data.data.userId)
+      // console.log(res1)
+      // console.log(res2)
+      context.commit('getUser', { ...res1.data.data, ...res2.data.data })
+      // console.log(res1)
+      return res1.data.data.roles.menus
+      // getUser().then(res1 => {
+      //   getUserInfo(res1.data.data.userId).then(res2 => {
+      //     context.commit('getUser', { ...res1.data.data, ...res2.data.data })
+      //   })
+      // })
     }
   }
 }

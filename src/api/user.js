@@ -24,6 +24,12 @@ export function getUser() {
     url: '/sys/profile'
   })
 }
+export function getUsers() {
+  return request({
+    method: 'post',
+    url: '/sys/profile'
+  })
+}
 
 /**
  * 获取用户基本信息

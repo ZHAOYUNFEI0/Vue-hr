@@ -6,7 +6,8 @@ import settings from '@/settings'
 // 加载动画
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-
+import { asyncRoutes } from '@/router'
+// import { constantRoutes } from '@/router'
 // 定义白名单
 const whiteList = ['/login', '/404']
 // 全局导航守卫，权限控制
@@ -22,7 +23,18 @@ router.beforeEach(async(to, from, next) => {
   if (token) {
     // 没有用户数据 发送请求
     if (!userId) {
-      await store.dispatch('user/getUser')
+      const menus = await store.dispatch('user/getUser')
+      const filterRouters = asyncRoutes.filter(item => {
+        const routeName = item.children[0].name
+        // console.log(routeName)
+        return menus.includes(routeName)
+      })
+      // console.log(menus)
+      // const menus = store.user.state.menus
+      // console.log(store.state.user.menus)
+      // console.log(filterRouters)
+      router.addRoutes([...filterRouters, { path: '*', redirect: '/404', hidden: true }])
+      store.commit('menu/setMenuList', filterRouters)
     }
 
     if (to.path === '/login') {
