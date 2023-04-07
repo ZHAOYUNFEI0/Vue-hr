@@ -25,6 +25,18 @@ Vue.use(ElementUI)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
+// 自定义指令
+Vue.directive('allow', {
+  inserted(el, binding) {
+    const a = store.state.user.getUser.roles.points
+    if (!a.includes(binding.value)) {
+      // console.log(el)
+      el.style.display = 'none'
+    }
+    // console.log(binding.value)
+  }
+})
+
 Vue.config.productionTip = false
 
 new Vue({
