@@ -35,6 +35,11 @@ router.beforeEach(async(to, from, next) => {
       // console.log(filterRouters)
       router.addRoutes([...filterRouters, { path: '*', redirect: '/404', hidden: true }])
       store.commit('menu/setMenuList', filterRouters)
+      // 解决刷新出现的白屏bug
+      next({
+        ...to, // next({ ...to })的目的,是保证路由添加完了再进入页面 (可以理解为重进一次)
+        replace: true // 重进一次, 不保留重复历史
+      })
     }
 
     if (to.path === '/login') {
